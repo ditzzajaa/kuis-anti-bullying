@@ -16,9 +16,7 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -57,8 +55,6 @@ body::after {
     pointer-events: none;
 }
 
-/* TOMBOL KEMBALI */
-
 .back-button {
     position: absolute;
     top: 18px;
@@ -90,8 +86,6 @@ body::after {
     transform: translateX(-4px);
 }
 
-/* ANIMASI HALAMAN */
-
 .container {
     max-width: 750px;
     margin: auto;
@@ -118,9 +112,7 @@ body::after {
     margin-bottom: 8px;
 }
 
-.header h1 span {
-    color: #36a5ff;
-}
+.header h1 span { color: #36a5ff; }
 
 .header p {
     color: #a9bbd0;
@@ -140,9 +132,7 @@ body::after {
     animation: fadeUp 1.3s ease both;
 }
 
-.info-icon {
-    font-size: 25px;
-}
+.info-icon { font-size: 25px; }
 
 .info p {
     color: #c1d2e6;
@@ -150,9 +140,7 @@ body::after {
     line-height: 1.7;
 }
 
-.progress-box {
-    margin-bottom: 20px;
-}
+.progress-box { margin-bottom: 20px; }
 
 .progress-info {
     display: flex;
@@ -245,9 +233,7 @@ body::after {
     cursor: pointer;
 }
 
-.option input:disabled {
-    cursor: default;
-}
+.option input:disabled { cursor: default; }
 
 .submit-btn, .restart-btn {
     width: 100%;
@@ -356,104 +342,48 @@ body::after {
     line-height: 2;
 }
 
-.footer strong {
-    color: #4baeff;
-}
-
-/* KEYFRAMES */
+.footer strong { color: #4baeff; }
 
 @keyframes pageEnter {
-    from {
-        opacity: 0;
-        filter: blur(8px);
-    }
-    to {
-        opacity: 1;
-        filter: blur(0);
-    }
+    from { opacity: 0; filter: blur(8px); }
+    to { opacity: 1; filter: blur(0); }
 }
 
 @keyframes headerEnter {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes backEnter {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes iconEnter {
-    from {
-        opacity: 0;
-        scale: .5;
-    }
-    to {
-        opacity: 1;
-        scale: 1;
-    }
+    from { opacity: 0; scale: .5; }
+    to { opacity: 1; scale: 1; }
 }
 
 @keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes zoomIn {
-    from {
-        opacity: 0;
-        transform: scale(.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    from { opacity: 0; transform: scale(.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 @media(max-width: 480px) {
-    body {
-        padding: 15px 12px;
-    }
-
-    .question-card {
-        padding: 17px;
-    }
-
-    .header {
-        padding: 55px 10px 25px;
-    }
-
-    .back-button {
-        top: 12px;
-        left: 12px;
-    }
+    body { padding: 15px 12px; }
+    .question-card { padding: 17px; }
+    .header { padding: 55px 10px 25px; }
+    .back-button { top: 12px; left: 12px; }
 }
 
 @media(prefers-reduced-motion: reduce) {
@@ -469,7 +399,6 @@ body::after {
 
 <body>
 
-<!-- TOMBOL KEMBALI -->
 <a href="https://artikel-kelompok-abc.vercel.app" class="back-button">
     <span class="back-arrow">←</span>
     <span class="back-text">Kembali</span>
@@ -477,7 +406,6 @@ body::after {
 
 <div class="container">
 
-    <!-- HEADER -->
     <header class="header">
         <div class="header-icon">🛡️</div>
         <h1>KUIS <span>ANTI-BULLYING</span></h1>
@@ -487,7 +415,6 @@ body::after {
         </p>
     </header>
 
-    <!-- INFORMASI -->
     <div class="info">
         <div class="info-icon">💡</div>
         <p>
@@ -497,7 +424,6 @@ body::after {
         </p>
     </div>
 
-    <!-- PROGRESS -->
     <div class="progress-box">
         <div class="progress-info">
             <span>Progress pengerjaan</span>
@@ -508,7 +434,6 @@ body::after {
         </div>
     </div>
 
-    <!-- FORM KUIS -->
     <form id="quizForm">
         <div id="questions"></div>
 
@@ -517,7 +442,6 @@ body::after {
         </button>
     </form>
 
-    <!-- HASIL NILAI -->
     <div class="result" id="result">
         <div class="result-icon" id="resultIcon">🏆</div>
         <h2 id="resultTitle">Kuis Selesai!</h2>
@@ -547,7 +471,6 @@ body::after {
         </button>
     </div>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <p>🛡️ <strong>STOP BULLYING!</strong></p>
         <p>Mulai dari diri sendiri, mulai dari sekarang.</p>
@@ -556,9 +479,11 @@ body::after {
 
 </div>
 
+<!-- AUDIO SFX -->
+<audio id="submitSfx" src="sfx.mp3" preload="auto"></audio>
+
 <script>
 
-// DATA SOAL DAN KUNCI JAWABAN
 const quizData = [
     {
         question: "Apa yang dimaksud dengan bullying?",
@@ -700,6 +625,10 @@ const quizData = [
 const questionsContainer = document.getElementById("questions");
 const quizForm = document.getElementById("quizForm");
 
+// AUDIO SFX
+const submitSfx = document.getElementById("submitSfx");
+submitSfx.volume = 1.0;
+
 // MEMBUAT SOAL OTOMATIS
 function renderQuestions() {
 
@@ -798,6 +727,12 @@ quizForm.addEventListener("submit", function(event) {
         }
     }
 
+    // PUTAR SFX KETIKA SEMUA SOAL SUDAH DIJAWAB
+    submitSfx.currentTime = 0;
+    submitSfx.play().catch(error => {
+        console.warn("SFX tidak dapat diputar:", error);
+    });
+
     // CEK JAWABAN
     quizData.forEach((item, index) => {
 
@@ -811,16 +746,12 @@ quizForm.addEventListener("submit", function(event) {
     });
 
     const wrong = quizData.length - correct;
-
-    // FORMULA NILAI
     const score = correct * 10;
 
-    // TAMPILKAN NILAI
     document.getElementById("score").textContent = score;
     document.getElementById("correct").textContent = correct;
     document.getElementById("wrong").textContent = wrong;
 
-    // PESAN HASIL
     let title, desc, icon;
 
     if (score === 150) {
@@ -852,14 +783,12 @@ quizForm.addEventListener("submit", function(event) {
     document.getElementById("resultDesc").textContent = desc;
     document.getElementById("resultIcon").textContent = icon;
 
-    // KUNCI JAWABAN SETELAH SELESAI
     document.querySelectorAll('input[type="radio"]').forEach(input => {
         input.disabled = true;
     });
 
     document.getElementById("submitBtn").disabled = true;
 
-    // TAMPILKAN HASIL
     document.getElementById("result").style.display = "block";
 
     setTimeout(() => {
@@ -877,6 +806,10 @@ quizForm.addEventListener("submit", function(event) {
 function restartQuiz() {
 
     quizForm.reset();
+
+    // RESET AUDIO AGAR SIAP DIPUTAR LAGI
+    submitSfx.pause();
+    submitSfx.currentTime = 0;
 
     document.getElementById("result").style.display = "none";
 
