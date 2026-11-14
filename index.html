@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#071b35">
+<meta name="theme-color" content="#071426">
 <title>Kuis Anti-Bullying</title>
 
 <style>
@@ -13,6 +14,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -35,6 +40,7 @@ body::before {
     top: -120px;
     left: -100px;
     z-index: -1;
+    pointer-events: none;
 }
 
 body::after {
@@ -48,24 +54,62 @@ body::after {
     bottom: -100px;
     right: -100px;
     z-index: -1;
+    pointer-events: none;
 }
+
+/* TOMBOL KEMBALI */
+
+.back-button {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #b9d9f5;
+    gap: 2px;
+    z-index: 100;
+    transition: .3s ease;
+    animation: backEnter .8s ease both;
+}
+
+.back-arrow {
+    font-size: 29px;
+    line-height: 1;
+    font-weight: 600;
+}
+
+.back-text {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.back-button:hover {
+    color: #39aaff;
+    transform: translateX(-4px);
+}
+
+/* ANIMASI HALAMAN */
 
 .container {
     max-width: 750px;
     margin: auto;
+    animation: pageEnter 1s ease both;
 }
 
 .header {
     text-align: center;
     padding: 30px 15px;
-    animation: fadeDown .8s ease;
+    animation: headerEnter 1.2s ease both;
 }
 
 .header-icon {
     font-size: 55px;
     margin-bottom: 12px;
     display: inline-block;
-    animation: float 3s infinite ease-in-out;
+    animation: float 3s infinite ease-in-out,
+               iconEnter 1.2s ease both;
 }
 
 .header h1 {
@@ -93,7 +137,7 @@ body::after {
     display: flex;
     align-items: center;
     gap: 12px;
-    animation: fadeUp .7s ease;
+    animation: fadeUp 1.3s ease both;
 }
 
 .info-icon {
@@ -140,7 +184,7 @@ body::after {
     padding: 22px;
     margin-bottom: 16px;
     transition: .3s;
-    animation: fadeUp .5s ease both;
+    animation: fadeUp .7s ease both;
 }
 
 .question-card:hover {
@@ -316,42 +360,124 @@ body::after {
     color: #4baeff;
 }
 
-@keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* KEYFRAMES */
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        filter: blur(8px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes headerEnter {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes backEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes iconEnter {
+    from {
+        opacity: 0;
+        scale: .5;
+    }
+    to {
+        opacity: 1;
+        scale: 1;
+    }
 }
 
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes zoomIn {
-    from { opacity: 0; transform: scale(.9); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-html {
-    scroll-behavior: smooth;
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 @media(max-width: 480px) {
-    body { padding: 15px 12px; }
-    .question-card { padding: 17px; }
-    .header { padding: 25px 10px; }
+    body {
+        padding: 15px 12px;
+    }
+
+    .question-card {
+        padding: 17px;
+    }
+
+    .header {
+        padding: 55px 10px 25px;
+    }
+
+    .back-button {
+        top: 12px;
+        left: 12px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- TOMBOL KEMBALI -->
+<a href="https://artikel-kelompok-abc.vercel.app" class="back-button">
+    <span class="back-arrow">←</span>
+    <span class="back-text">Kembali</span>
+</a>
+
 <div class="container">
 
+    <!-- HEADER -->
     <header class="header">
         <div class="header-icon">🛡️</div>
         <h1>KUIS <span>ANTI-BULLYING</span></h1>
@@ -361,6 +487,7 @@ html {
         </p>
     </header>
 
+    <!-- INFORMASI -->
     <div class="info">
         <div class="info-icon">💡</div>
         <p>
@@ -370,6 +497,7 @@ html {
         </p>
     </div>
 
+    <!-- PROGRESS -->
     <div class="progress-box">
         <div class="progress-info">
             <span>Progress pengerjaan</span>
@@ -380,16 +508,16 @@ html {
         </div>
     </div>
 
+    <!-- FORM KUIS -->
     <form id="quizForm">
-
         <div id="questions"></div>
 
         <button type="submit" class="submit-btn" id="submitBtn">
             KUMPULKAN JAWABAN →
         </button>
-
     </form>
 
+    <!-- HASIL NILAI -->
     <div class="result" id="result">
         <div class="result-icon" id="resultIcon">🏆</div>
         <h2 id="resultTitle">Kuis Selesai!</h2>
@@ -414,11 +542,12 @@ html {
             berkata TIDAK pada perundungan.
         </p>
 
-        <button class="restart-btn" onclick="restartQuiz()">
+        <button type="button" class="restart-btn" onclick="restartQuiz()">
             ↻ ULANGI KUIS
         </button>
     </div>
 
+    <!-- FOOTER -->
     <footer class="footer">
         <p>🛡️ <strong>STOP BULLYING!</strong></p>
         <p>Mulai dari diri sendiri, mulai dari sekarang.</p>
@@ -429,7 +558,7 @@ html {
 
 <script>
 
-// DATA SOAL DAN JAWABAN
+// DATA SOAL DAN KUNCI JAWABAN
 const quizData = [
     {
         question: "Apa yang dimaksud dengan bullying?",
@@ -618,7 +747,7 @@ function renderQuestions() {
     updateProgress();
 }
 
-// PROGRESS JAWABAN
+// UPDATE PROGRESS
 function updateProgress() {
 
     let answered = 0;
@@ -648,7 +777,7 @@ quizForm.addEventListener("submit", function(event) {
 
     let correct = 0;
 
-    // CEK APAKAH SEMUA SOAL SUDAH DIJAWAB
+    // CEK SEMUA SOAL SUDAH DIJAWAB
     for (let i = 0; i < quizData.length; i++) {
 
         const selected = document.querySelector(
@@ -656,14 +785,20 @@ quizForm.addEventListener("submit", function(event) {
         );
 
         if (!selected) {
+
             alert("Masih ada soal yang belum dijawab! Silakan periksa kembali.");
+
             document.querySelectorAll(".question-card")[i]
-                .scrollIntoView({ behavior: "smooth", block: "center" });
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
             return;
         }
     }
 
-    // PERHITUNGAN JAWABAN BENAR
+    // CEK JAWABAN
     quizData.forEach((item, index) => {
 
         const selected = document.querySelector(
@@ -680,27 +815,34 @@ quizForm.addEventListener("submit", function(event) {
     // FORMULA NILAI
     const score = correct * 10;
 
-    // MENAMPILKAN HASIL
+    // TAMPILKAN NILAI
     document.getElementById("score").textContent = score;
     document.getElementById("correct").textContent = correct;
     document.getElementById("wrong").textContent = wrong;
 
-    // PESAN BERDASARKAN NILAI
+    // PESAN HASIL
     let title, desc, icon;
 
     if (score === 150) {
+
         title = "Sempurna!";
         desc = "Luar biasa! Kamu memahami materi Anti-Bullying dengan sangat baik.";
         icon = "🏆";
+
     } else if (score >= 100) {
+
         title = "Bagus Sekali!";
         desc = "Kamu sudah memahami pentingnya menghentikan perundungan. Terus pertahankan!";
         icon = "🌟";
+
     } else if (score >= 70) {
+
         title = "Cukup Baik!";
         desc = "Kamu sudah memiliki pemahaman yang baik. Pelajari kembali beberapa materi.";
         icon = "👏";
+
     } else {
+
         title = "Tetap Semangat!";
         desc = "Jangan menyerah! Pelajari kembali materi Anti-Bullying dan coba lagi.";
         icon = "📚";
@@ -720,17 +862,18 @@ quizForm.addEventListener("submit", function(event) {
     // TAMPILKAN HASIL
     document.getElementById("result").style.display = "block";
 
-    // SCROLL KE HASIL
     setTimeout(() => {
+
         document.getElementById("result").scrollIntoView({
             behavior: "smooth",
             block: "center"
         });
+
     }, 200);
 
 });
 
-// MENGULANGI KUIS
+// ULANGI KUIS
 function restartQuiz() {
 
     quizForm.reset();
