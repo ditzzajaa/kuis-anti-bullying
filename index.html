@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071b35">
+<title>Kuis Anti-Bullying</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #071426;
+    color: #fff;
+    min-height: 100vh;
+    padding: 25px 15px;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    background: #087cff;
+    filter: blur(150px);
+    opacity: .18;
+    top: -120px;
+    left: -100px;
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: #00d9a5;
+    filter: blur(150px);
+    opacity: .12;
+    bottom: -100px;
+    right: -100px;
+    z-index: -1;
+}
+
+.container {
+    max-width: 750px;
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+    padding: 30px 15px;
+    animation: fadeDown .8s ease;
+}
+
+.header-icon {
+    font-size: 55px;
+    margin-bottom: 12px;
+    display: inline-block;
+    animation: float 3s infinite ease-in-out;
+}
+
+.header h1 {
+    font-size: clamp(25px, 5vw, 36px);
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.header h1 span {
+    color: #36a5ff;
+}
+
+.header p {
+    color: #a9bbd0;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.info {
+    background: rgba(21, 47, 77, .65);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px;
+    padding: 17px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeUp .7s ease;
+}
+
+.info-icon {
+    font-size: 25px;
+}
+
+.info p {
+    color: #c1d2e6;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.progress-box {
+    margin-bottom: 20px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    color: #b7c9df;
+    font-size: 12px;
+    margin-bottom: 9px;
+}
+
+.progress {
+    height: 8px;
+    background: #1b304a;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #168cff, #00e0b0);
+    border-radius: 20px;
+    transition: width .4s ease;
+}
+
+.question-card {
+    background: rgba(15, 35, 59, .9);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 17px;
+    padding: 22px;
+    margin-bottom: 16px;
+    transition: .3s;
+    animation: fadeUp .5s ease both;
+}
+
+.question-card:hover {
+    border-color: rgba(54,165,255,.4);
+    transform: translateY(-2px);
+}
+
+.question-number {
+    display: inline-block;
+    background: rgba(35, 145, 255, .15);
+    color: #54b5ff;
+    padding: 5px 12px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.question-card h3 {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 17px;
+    font-weight: 600;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px;
+    background: #142c47;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px;
+    margin-top: 9px;
+    cursor: pointer;
+    transition: .2s;
+    font-size: 12px;
+    color: #d5e2f1;
+    line-height: 1.6;
+}
+
+.option:hover {
+    background: #1b3b5e;
+    border-color: #329fff;
+}
+
+.option:has(input:checked) {
+    background: rgba(27, 137, 255, .15);
+    border-color: #329fff;
+    color: white;
+}
+
+.option input {
+    accent-color: #269cff;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.option input:disabled {
+    cursor: default;
+}
+
+.submit-btn, .restart-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.submit-btn {
+    color: white;
+    background: linear-gradient(100deg, #087cff, #00bba5);
+    box-shadow: 0 5px 25px rgba(0, 140, 255, .2);
+}
+
+.submit-btn:hover, .restart-btn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.12);
+}
+
+.submit-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.result {
+    display: none;
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(15, 35, 59, .95);
+    border: 1px solid rgba(54,165,255,.3);
+    border-radius: 20px;
+    margin-top: 20px;
+    animation: zoomIn .6s ease;
+}
+
+.result-icon {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.result h2 {
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.result-desc {
+    color: #a9bbd0;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.score-circle {
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    border: 7px solid #269cff;
+    margin: 25px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(38,156,255,.2);
+}
+
+.score-circle strong {
+    font-size: 39px;
+    color: #54b5ff;
+}
+
+.score-circle span {
+    color: #9eb4cc;
+    font-size: 11px;
+}
+
+.result-details {
+    background: #142c47;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.result-details span {
+    color: #40b7ff;
+    font-weight: 700;
+}
+
+.restart-btn {
+    background: #1b3d60;
+    color: white;
+    border: 1px solid #329fff;
+}
+
+.footer {
+    text-align: center;
+    color: #71869f;
+    font-size: 11px;
+    margin-top: 35px;
+    line-height: 2;
+}
+
+.footer strong {
+    color: #4baeff;
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media(max-width: 480px) {
+    body { padding: 15px 12px; }
+    .question-card { padding: 17px; }
+    .header { padding: 25px 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <div class="header-icon">🛡️</div>
+        <h1>KUIS <span>ANTI-BULLYING</span></h1>
+        <p>
+            Bersama kita ciptakan lingkungan sekolah yang aman,
+            nyaman, dan bebas dari perundungan.
+        </p>
+    </header>
+
+    <div class="info">
+        <div class="info-icon">💡</div>
+        <p>
+            Jawablah 15 pertanyaan berikut dengan teliti.
+            Pilih satu jawaban yang paling tepat pada setiap soal.
+            Setelah selesai, tekan tombol kumpulkan jawaban.
+        </p>
+    </div>
+
+    <div class="progress-box">
+        <div class="progress-info">
+            <span>Progress pengerjaan</span>
+            <span id="progressText">0 / 15 terjawab</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <form id="quizForm">
+
+        <div id="questions"></div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+            KUMPULKAN JAWABAN →
+        </button>
+
+    </form>
+
+    <div class="result" id="result">
+        <div class="result-icon" id="resultIcon">🏆</div>
+        <h2 id="resultTitle">Kuis Selesai!</h2>
+        <p class="result-desc" id="resultDesc">
+            Terima kasih telah mengikuti kuis Anti-Bullying.
+        </p>
+
+        <div class="score-circle">
+            <strong id="score">0</strong>
+            <span>Nilai Kamu</span>
+        </div>
+
+        <div class="result-details">
+            Jumlah Benar : <span id="correct">0</span><br>
+            Jumlah Salah : <span id="wrong">0</span><br>
+            Total Soal : <span>15</span>
+        </div>
+
+        <p class="result-desc" style="margin-bottom:20px;">
+            Ingat! Setiap orang berhak dihargai.
+            Jangan melakukan bullying dan berani
+            berkata TIDAK pada perundungan.
+        </p>
+
+        <button class="restart-btn" onclick="restartQuiz()">
+            ↻ ULANGI KUIS
+        </button>
+    </div>
+
+    <footer class="footer">
+        <p>🛡️ <strong>STOP BULLYING!</strong></p>
+        <p>Mulai dari diri sendiri, mulai dari sekarang.</p>
+        <p>© 2026 Edukasi Anti-Bullying</p>
+    </footer>
+
+</div>
+
+<script>
+
+// DATA SOAL DAN JAWABAN
+const quizData = [
+    {
+        question: "Apa yang dimaksud dengan bullying?",
+        options: [
+            "Tindakan menyakiti atau merendahkan orang lain secara berulang",
+            "Kegiatan belajar bersama",
+            "Persaingan dalam permainan"
+        ],
+        answer: 0
+    },
+    {
+        question: "Manakah contoh bullying secara verbal?",
+        options: [
+            "Membantu teman belajar",
+            "Mengejek dan menghina teman",
+            "Bermain bersama teman"
+        ],
+        answer: 1
+    },
+    {
+        question: "Berikut yang termasuk bullying secara fisik adalah ...",
+        options: [
+            "Menyebarkan rumor",
+            "Menghina teman",
+            "Memukul atau menendang teman"
+        ],
+        answer: 2
+    },
+    {
+        question: "Mengucilkan seseorang dari kelompok pertemanan termasuk bullying ...",
+        options: [
+            "Sosial",
+            "Fisik",
+            "Verbal"
+        ],
+        answer: 0
+    },
+    {
+        question: "Apa yang dimaksud dengan cyberbullying?",
+        options: [
+            "Perundungan di lingkungan rumah",
+            "Perundungan melalui media digital",
+            "Perselisihan saat bermain"
+        ],
+        answer: 1
+    },
+    {
+        question: "Apa yang harus dilakukan jika mengalami bullying?",
+        options: [
+            "Membalas dengan kekerasan",
+            "Diam dan memendam masalah",
+            "Melaporkan kepada guru atau orang dewasa tepercaya"
+        ],
+        answer: 2
+    },
+    {
+        question: "Siapa yang bertanggung jawab mencegah bullying di sekolah?",
+        options: [
+            "Seluruh warga sekolah",
+            "Hanya kepala sekolah",
+            "Hanya guru BK"
+        ],
+        answer: 0
+    },
+    {
+        question: "Apa dampak bullying bagi korban?",
+        options: [
+            "Meningkatkan rasa percaya diri",
+            "Menimbulkan rasa takut dan stres",
+            "Membuat prestasi selalu meningkat"
+        ],
+        answer: 1
+    },
+    {
+        question: "Apa yang sebaiknya dilakukan ketika melihat teman mengalami bullying?",
+        options: [
+            "Ikut menertawakan",
+            "Merekam dan menyebarkannya",
+            "Membantu korban dan melaporkan kejadian"
+        ],
+        answer: 2
+    },
+    {
+        question: "Mengapa kita tidak boleh melakukan bullying?",
+        options: [
+            "Karena dapat menyakiti fisik dan perasaan orang lain",
+            "Karena dapat membuat kita terkenal",
+            "Karena membuat teman takut"
+        ],
+        answer: 0
+    },
+    {
+        question: "Apa arti toleransi dalam pertemanan?",
+        options: [
+            "Memaksakan pendapat sendiri",
+            "Menghargai perbedaan setiap orang",
+            "Memilih teman berdasarkan penampilan"
+        ],
+        answer: 1
+    },
+    {
+        question: "Bagaimana cara menciptakan lingkungan sekolah yang bebas bullying?",
+        options: [
+            "Membiarkan teman yang diejek",
+            "Menghindari semua teman",
+            "Saling menghormati dan menghargai"
+        ],
+        answer: 2
+    },
+    {
+        question: "Apa yang harus dilakukan jika teman melakukan bullying?",
+        options: [
+            "Menegur dengan baik dan melaporkannya jika diperlukan",
+            "Mendukung tindakan tersebut",
+            "Ikut melakukan hal yang sama"
+        ],
+        answer: 0
+    },
+    {
+        question: "Apakah bercanda yang menyakiti perasaan teman secara berulang dapat menjadi bullying?",
+        options: [
+            "Tidak, karena hanya bercanda",
+            "Ya, jika memenuhi unsur perundungan",
+            "Tidak, jika dilakukan bersama teman"
+        ],
+        answer: 1
+    },
+    {
+        question: "Apa tujuan utama gerakan Anti-Bullying?",
+        options: [
+            "Membuat siswa takut kepada guru",
+            "Membatasi pertemanan siswa",
+            "Menciptakan lingkungan yang aman, nyaman, dan saling menghargai"
+        ],
+        answer: 2
+    }
+];
+
+const questionsContainer = document.getElementById("questions");
+const quizForm = document.getElementById("quizForm");
+
+// MEMBUAT SOAL OTOMATIS
+function renderQuestions() {
+
+    questionsContainer.innerHTML = "";
+
+    quizData.forEach((item, index) => {
+
+        let optionsHTML = "";
+
+        item.options.forEach((option, optionIndex) => {
+
+            const letter = ["A", "B", "C"][optionIndex];
+
+            optionsHTML += `
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="question${index}"
+                        value="${optionIndex}"
+                    >
+                    <span><b>${letter}.</b> ${option}</span>
+                </label>
+            `;
+        });
+
+        questionsContainer.innerHTML += `
+            <div class="question-card">
+                <span class="question-number">
+                    PERTANYAAN ${index + 1}
+                </span>
+
+                <h3>${index + 1}. ${item.question}</h3>
+
+                <div class="options">
+                    ${optionsHTML}
+                </div>
+            </div>
+        `;
+    });
+
+    document.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.addEventListener("change", updateProgress);
+    });
+
+    updateProgress();
+}
+
+// PROGRESS JAWABAN
+function updateProgress() {
+
+    let answered = 0;
+
+    quizData.forEach((item, index) => {
+
+        const selected = document.querySelector(
+            `input[name="question${index}"]:checked`
+        );
+
+        if (selected) answered++;
+    });
+
+    const percentage = (answered / quizData.length) * 100;
+
+    document.getElementById("progressText").textContent =
+        `${answered} / ${quizData.length} terjawab`;
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+}
+
+// MENGHITUNG NILAI
+quizForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let correct = 0;
+
+    // CEK APAKAH SEMUA SOAL SUDAH DIJAWAB
+    for (let i = 0; i < quizData.length; i++) {
+
+        const selected = document.querySelector(
+            `input[name="question${i}"]:checked`
+        );
+
+        if (!selected) {
+            alert("Masih ada soal yang belum dijawab! Silakan periksa kembali.");
+            document.querySelectorAll(".question-card")[i]
+                .scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+    }
+
+    // PERHITUNGAN JAWABAN BENAR
+    quizData.forEach((item, index) => {
+
+        const selected = document.querySelector(
+            `input[name="question${index}"]:checked`
+        );
+
+        if (Number(selected.value) === item.answer) {
+            correct++;
+        }
+    });
+
+    const wrong = quizData.length - correct;
+
+    // FORMULA NILAI
+    const score = correct * 10;
+
+    // MENAMPILKAN HASIL
+    document.getElementById("score").textContent = score;
+    document.getElementById("correct").textContent = correct;
+    document.getElementById("wrong").textContent = wrong;
+
+    // PESAN BERDASARKAN NILAI
+    let title, desc, icon;
+
+    if (score === 150) {
+        title = "Sempurna!";
+        desc = "Luar biasa! Kamu memahami materi Anti-Bullying dengan sangat baik.";
+        icon = "🏆";
+    } else if (score >= 100) {
+        title = "Bagus Sekali!";
+        desc = "Kamu sudah memahami pentingnya menghentikan perundungan. Terus pertahankan!";
+        icon = "🌟";
+    } else if (score >= 70) {
+        title = "Cukup Baik!";
+        desc = "Kamu sudah memiliki pemahaman yang baik. Pelajari kembali beberapa materi.";
+        icon = "👏";
+    } else {
+        title = "Tetap Semangat!";
+        desc = "Jangan menyerah! Pelajari kembali materi Anti-Bullying dan coba lagi.";
+        icon = "📚";
+    }
+
+    document.getElementById("resultTitle").textContent = title;
+    document.getElementById("resultDesc").textContent = desc;
+    document.getElementById("resultIcon").textContent = icon;
+
+    // KUNCI JAWABAN SETELAH SELESAI
+    document.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.disabled = true;
+    });
+
+    document.getElementById("submitBtn").disabled = true;
+
+    // TAMPILKAN HASIL
+    document.getElementById("result").style.display = "block";
+
+    // SCROLL KE HASIL
+    setTimeout(() => {
+        document.getElementById("result").scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }, 200);
+
+});
+
+// MENGULANGI KUIS
+function restartQuiz() {
+
+    quizForm.reset();
+
+    document.getElementById("result").style.display = "none";
+
+    document.getElementById("submitBtn").disabled = false;
+
+    renderQuestions();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+// JALANKAN KUIS
+renderQuestions();
+
+</script>
+
+</body>
+</html>
